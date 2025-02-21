@@ -8,6 +8,13 @@ This files contains a version history including all changes relevant for semanti
 
 ## Upcoming Changes
 
-* moved from prototyping-repo to here
+*(none)*
 
-  
+
+
+## v 0.1.0
+released **2025-02-21**, including:
+ - moved from prototyping-repo to here
+
+
+
