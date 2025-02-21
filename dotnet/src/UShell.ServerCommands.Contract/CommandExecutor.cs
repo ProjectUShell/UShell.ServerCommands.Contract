@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace UShell.ServerCommands {
 
-  public partial class CommandExecutor : IServerCommandsExecutor {
+  public partial class CommandExecutor : IServerCommandExecutor {
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private Dictionary<string, RegisteredCommand> _RegisteredCommandsPerName = new Dictionary<string, RegisteredCommand>();

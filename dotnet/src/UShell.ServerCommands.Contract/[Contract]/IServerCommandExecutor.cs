@@ -1,7 +1,7 @@
 ﻿
 namespace UShell.ServerCommands {
 
-  public interface IServerCommandsExecutor {
+  public interface IServerCommandExecutor {
 
     /// <summary>
     /// Returns an listing of supported commands and their required arguments.

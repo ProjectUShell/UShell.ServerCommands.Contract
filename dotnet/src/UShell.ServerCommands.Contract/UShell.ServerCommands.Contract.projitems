@@ -17,7 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)[Contract]\ServerCommandExecutionState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)[Contract]\[Enums]\InvocationStatus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)[Contract]\[Enums]\CommandAvailabilityInfo.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)[Contract]\IServerCommandsExecutor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)[Contract]\IServerCommandExecutor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)UShell\" />

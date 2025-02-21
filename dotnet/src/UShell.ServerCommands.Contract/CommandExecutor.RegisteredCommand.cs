@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace UShell.ServerCommands {
 
-  public partial class CommandExecutor : IServerCommandsExecutor {
+  public partial class CommandExecutor {
 
     [DebuggerDisplay(nameof(RegisteredCommand) + " ({CommandName})")]
     public class RegisteredCommand {
