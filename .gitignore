@@ -244,7 +244,7 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 
-/vendor/nuget/
+**/vendor/nuget/
 Lib_JS/lib/*
 /dotnet/dist
 /js/dist
