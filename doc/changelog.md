@@ -8,7 +8,13 @@ This files contains a version history including all changes relevant for semanti
 
 ## Upcoming Changes
 
-* Deleted .NET 4.6 Target and enabled .NET 8.0
+*(none)*
+
+
+
+## v 0.1.1
+released **2025-06-03**, including:
+ - Deleted .NET 4.6 Target and enabled .NET 8.0
 
 
 
