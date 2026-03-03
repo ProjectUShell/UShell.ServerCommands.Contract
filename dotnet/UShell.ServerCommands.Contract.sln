@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\js\src\iServerCommandsExecutor.ts = ..\js\src\iServerCommandsExecutor.ts
 		..\js\package.json = ..\js\package.json
 		..\readme.md = ..\readme.md
+		UShell.ServerCommands.AspNetCore.nuspec = UShell.ServerCommands.AspNetCore.nuspec
 		UShell.ServerCommands.Contract.nuspec = UShell.ServerCommands.Contract.nuspec
 	EndProjectSection
 EndProject
@@ -27,6 +28,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UShell.ServerCommands.Contract.net8", "src\UShell.ServerCommands.Contract.net8.0\UShell.ServerCommands.Contract.net8.csproj", "{4E7216A6-8146-479A-B433-4F777ABED293}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UShell.ServerCommands.Contract.net48", "src\UShell.ServerCommands.Contract.net48\UShell.ServerCommands.Contract.net48.csproj", "{B0BA06FE-6437-4B9E-8C76-3ADFC8D191D2}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UShell.ServerCommands.AspNetCore", "src\UShell.ServerCommands.AspNetCore\UShell.ServerCommands.AspNetCore.shproj", "{FCB5D3F8-ED1B-41E1-B36E-AA0B1E36A344}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UShell.ServerCommands.AspNetCore.net8", "src\UShell.ServerCommands.Contract.AspNetCore.net8.0\UShell.ServerCommands.AspNetCore.net8.csproj", "{A578BA9D-C134-CED5-B678-01A6F6499F24}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UShell.ServerCommands.DemoWebService", "test\UShell.ServerCommands.DemoWebService\UShell.ServerCommands.DemoWebService.csproj", "{47F0A76E-FCDE-4418-4CE4-4D276111A84A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +59,14 @@ Global
 		{B0BA06FE-6437-4B9E-8C76-3ADFC8D191D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0BA06FE-6437-4B9E-8C76-3ADFC8D191D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0BA06FE-6437-4B9E-8C76-3ADFC8D191D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A578BA9D-C134-CED5-B678-01A6F6499F24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A578BA9D-C134-CED5-B678-01A6F6499F24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A578BA9D-C134-CED5-B678-01A6F6499F24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A578BA9D-C134-CED5-B678-01A6F6499F24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47F0A76E-FCDE-4418-4CE4-4D276111A84A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47F0A76E-FCDE-4418-4CE4-4D276111A84A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47F0A76E-FCDE-4418-4CE4-4D276111A84A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47F0A76E-FCDE-4418-4CE4-4D276111A84A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +78,9 @@ Global
 		{D0CD47CF-A4BE-408D-A621-0CD099CFB76F} = {C5272353-539E-4138-93FD-9DF437F6DA47}
 		{4E7216A6-8146-479A-B433-4F777ABED293} = {911E9786-3347-476A-89D8-6AB7EA3D6320}
 		{B0BA06FE-6437-4B9E-8C76-3ADFC8D191D2} = {911E9786-3347-476A-89D8-6AB7EA3D6320}
+		{FCB5D3F8-ED1B-41E1-B36E-AA0B1E36A344} = {EFB5135D-039A-4D92-8FDD-9EA5D070F991}
+		{A578BA9D-C134-CED5-B678-01A6F6499F24} = {911E9786-3347-476A-89D8-6AB7EA3D6320}
+		{47F0A76E-FCDE-4418-4CE4-4D276111A84A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D2F37C1D-32F0-4BF2-AAEB-46B9D8C07D23}
@@ -68,7 +88,9 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\UShell.ServerCommands.Contract\UShell.ServerCommands.Contract.projitems*{4e7216a6-8146-479a-b433-4f777abed293}*SharedItemsImports = 5
 		src\UShell.ServerCommands.Contract\UShell.ServerCommands.Contract.projitems*{7b5baea8-7e79-4a30-b6c1-4da4831af970}*SharedItemsImports = 5
+		src\UShell.ServerCommands.AspNetCore\UShell.ServerCommands.AspNetCore.projitems*{a578ba9d-c134-ced5-b678-01a6f6499f24}*SharedItemsImports = 5
 		src\UShell.ServerCommands.Contract\UShell.ServerCommands.Contract.projitems*{b0ba06fe-6437-4b9e-8c76-3adfc8d191d2}*SharedItemsImports = 4
 		src\UShell.ServerCommands.Contract\UShell.ServerCommands.Contract.projitems*{cf0a161a-99ba-4f01-af5e-16c6fcbc85ae}*SharedItemsImports = 13
+		src\UShell.ServerCommands.AspNetCore\UShell.ServerCommands.AspNetCore.projitems*{fcb5d3f8-ed1b-41e1-b36e-aa0b1e36a344}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

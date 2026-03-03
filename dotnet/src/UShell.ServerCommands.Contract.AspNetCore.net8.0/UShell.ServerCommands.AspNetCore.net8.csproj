@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>UShell.ServerCommands.AspNetCore</AssemblyName>
+    <RootNamespace>System</RootNamespace>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <PackageId>UShell.ServerCommands.AspNetCore</PackageId>
+    <Description>UShell.ServerCommands.AspNetCore</Description>
+    <Product>UShell.ServerCommands.AspNetCore</Product>
+    <Company>(public domain)</Company>
+    <Copyright>SmartStandards</Copyright>
+    <Version>0.1.1</Version>
+    <AssemblyVersion>0.1.1</AssemblyVersion>
+    <Authors>SmartStandards</Authors>
+    <FileVersion>0.1.1</FileVersion>
+    <PackageTags></PackageTags>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>..\..\dist\bin-net8.0\UShell.ServerCommands.Contract.xml</DocumentationFile>
+    <OutputPath>..\..\dist\bin-net8.0\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <NoWarn>1701;1702;1591</NoWarn>
+    <DefineConstants>TRACE;DEBUG;NET5</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\dist\bin-net8.0\</OutputPath>
+    <DocumentationFile>..\..\dist\bin-net8.0\UShell.ServerCommands.AspNetCoreAspNetCore.xml</DocumentationFile>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <NoWarn>1701;1702;1591</NoWarn>
+    <DefineConstants>TRACE;NET5</DefineConstants>
+  </PropertyGroup>
+
+  <Import Project="..\UShell.ServerCommands.AspNetCore\UShell.ServerCommands.AspNetCore.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
+    <PackageReference Include="UJMW.DynamicController" Version="5.3.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UShell.ServerCommands.Contract.net8.0\UShell.ServerCommands.Contract.net8.csproj" />
+  </ItemGroup>
+
+</Project>

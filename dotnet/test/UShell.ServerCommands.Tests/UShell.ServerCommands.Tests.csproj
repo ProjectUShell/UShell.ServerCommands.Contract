@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace></RootNamespace>
     <Nullable>disable</Nullable>    
     <IsPackable>false</IsPackable>     
@@ -11,10 +11,12 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.2" />
     <PackageReference Include="MSTest.TestAdapter" Version="3.0.4" />
     <PackageReference Include="MSTest.TestFramework" Version="3.0.4" />
+    <PackageReference Include="UJMW.DynamicClient" Version="5.3.7" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\UShell.ServerCommands.Contract.net6.0\UShell.ServerCommands.Contract.net6.0.csproj" />
+    <ProjectReference Include="..\UShell.ServerCommands.DemoWebService\UShell.ServerCommands.DemoWebService.csproj" />
   </ItemGroup>
 
 </Project>

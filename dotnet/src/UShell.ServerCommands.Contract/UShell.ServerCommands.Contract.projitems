@@ -9,6 +9,7 @@
     <Import_RootNamespace>System</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)CommandExecutorExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CommandExecutor.RegisteredCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CommandExecutor.InvocationResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CommandExecutor.ExecutionContext.cs" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 
 namespace UShell.ServerCommands {
@@ -245,6 +246,76 @@ namespace UShell.ServerCommands {
         return newCommand;
       }
     }
+
+    #region " Convenience to Register all Commands of an Interface "
+
+    public RegisteredCommand[] RegisterCommands<TCommandInterface>(Func<TCommandInterface> implementationGetter) {
+
+      Type commandInterfaceType = typeof(TCommandInterface);
+
+      MethodInfo[] commandMethods = commandInterfaceType.GetMethods();
+
+      List<RegisteredCommand> commands = new List<RegisteredCommand>();
+      foreach (MethodInfo commandMethod in commandMethods) {
+
+
+        RegisteredCommand command = this.RegisterCommand(
+          $"{commandInterfaceType.Name}.{commandMethod.Name}", (IExecutionContext context) => {
+
+            TCommandInterface impl = implementationGetter.Invoke();
+
+
+
+
+            context.SetCancellationPossible(true);
+
+
+
+            xxx
+
+
+
+
+
+
+
+
+
+            List<object> args = new List<object>();
+            ParameterInfo[] parameters = commandMethod.GetParameters();
+            for (int i = 0; i < parameters.Length; i++) {
+              if (i < execution.Arguments.Length) {
+                args.Add(execution.Arguments[i]);
+              }
+              else {
+                args.Add(Type.Missing);
+              }
+            }
+
+
+            //object result = commandMethod.Invoke(impl, args.ToArray());
+            //if (commandMethod.ReturnType == typeof(void)) {
+            //  return InvocationResult.Completed;
+            //}
+            //else {
+            //  //we dont do anything with the result, but at least we can check if it threw an exception or not
+            //  return InvocationResult.Completed;
+            //}
+
+
+
+            return InvocationResult.Completed;
+          }
+        );
+
+
+        commands.Add(command);
+      }
+
+      return commands.ToArray();
+    };
+
+    #endregion
 
     #endregion
 
