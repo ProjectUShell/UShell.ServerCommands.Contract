@@ -59,13 +59,20 @@ namespace UShell.ServerCommands {
       );
 
       bool cancallationRequestRedirected = false;
-      while (!cancellationToken.IsCancellationRequested && state.InvocationState == InvocationStatus.Queued || state.InvocationState == InvocationStatus.InProgress) {
+      while (
+        !cancellationToken.IsCancellationRequested && (
+          state.InvocationState == InvocationStatus.Queued ||
+          state.InvocationState == InvocationStatus.InProgress
+        )
+      ){
 
         Thread.Sleep(pollingIntervalSeconds * 1000);
 
         try {
 
-          executor.GetLatestExecutionState(state.ExecutionId, out ServerCommandExecutionState newState);
+          executor.GetLatestExecutionState(
+            state.ExecutionId, out ServerCommandExecutionState newState
+          );
 
           if(newState != null) {
             state = newState;

@@ -8,18 +8,25 @@ using System.Threading;
 
 namespace UShell.ServerCommands {
 
-  public partial class CommandExecutor : IServerCommandExecutor {
+  public partial class CommandExecutor : IServerCommandExecutor, ICommandRegistrar, IDisposable {
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private Dictionary<string, RegisteredCommand> _RegisteredCommandsPerName = new Dictionary<string, RegisteredCommand>();
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private Dictionary<string, ExecutionContext> _RunningExecutionsPerId = new Dictionary<string, ExecutionContext>();
-    
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    protected CancellationTokenSource EngineLifetimeCancellationTokenSource { get; set; } = new CancellationTokenSource();
+
     public CommandExecutor() {
     }
 
-    #region " RegisterCommand(...) (multiple overloads for convenience) "
+    public CommandExecutor(CancellationTokenSource engineLifetimeCancellationTokenSource) {
+      this.EngineLifetimeCancellationTokenSource = engineLifetimeCancellationTokenSource;
+    }
+
+    #region " ICommandRegistrar (multiple overloads for convenience) "
 
     #region " Action (0-3 Ags) "
 
@@ -241,6 +248,15 @@ namespace UShell.ServerCommands {
         newCommand.OnInvoke = onInvoke;
         newCommand.OnEvaluateAvailability = onEvaluateAvailability;
 
+        //just metadata for documentation
+        newCommand.ArgumentNames = onInvoke.Method.GetParameters().Where(
+          (p) => p.ParameterType != typeof(CancellationToken) && p.ParameterType != typeof(IExecutionContext)
+        ).Select(
+          p => p.Name
+        ).ToArray();
+        
+        //TODO: newCommand.Description = LoaderOptimization FROM XML-COMMENTS!
+
         _RegisteredCommandsPerName.Add(commandName, newCommand);
 
         return newCommand;
@@ -258,62 +274,84 @@ namespace UShell.ServerCommands {
       List<RegisteredCommand> commands = new List<RegisteredCommand>();
       foreach (MethodInfo commandMethod in commandMethods) {
 
+        List<Func<IExecutionContext, TCommandInterface,object>> convertedArgGetters = new List<Func<IExecutionContext, TCommandInterface, object>>();
+     
+        ParameterInfo[] parameters = commandMethod.GetParameters();
+        int exposedArgumentsIndex = 0;
+        for (int i = 0; i < parameters.Length; i++) {
+          Type targetType = parameters[i].ParameterType;
+          if (targetType == typeof(IExecutionContext)) {
+            convertedArgGetters.Add((ctx,tgt)=> ctx);
+          }
+          else if (targetType == typeof(CancellationToken)) {
+            convertedArgGetters.Add((ctx, tgt) => {
+              ctx.SetCancellationPossible(true);
+              return ctx.CancellationToken;
+            });
+          }
+          else {
+            if (targetType == typeof(string)) {
+              convertedArgGetters.Add(
+                (ctx, tgt) => ctx.Arguments[exposedArgumentsIndex]
+              );
+            }
+            else if (targetType.IsEnum) {
+              convertedArgGetters.Add(
+                (ctx, tgt) => Enum.Parse(targetType, ctx.Arguments[exposedArgumentsIndex] ?? string.Empty)
+              );
+            }
+            else if (targetType == typeof(Guid)) {
+              convertedArgGetters.Add(
+                (ctx, tgt) => Guid.Parse(ctx.Arguments[exposedArgumentsIndex] ?? Guid.Empty.ToString())
+              );
+            }
+            else if (targetType.IsPrimitive) {
+              convertedArgGetters.Add(
+               (ctx, tgt) => Convert.ChangeType(ctx.Arguments[exposedArgumentsIndex] ?? string.Empty, targetType)
+             );
+            }
+            else {
+              throw new NotSupportedException(
+                $"Unsupported parameter type '{targetType.FullName}' for parameter '{parameters[i].Name}' in command method '{commandMethod.Name}'. Only primitives are supported!"
+              );
+            }
+            exposedArgumentsIndex++;
+          }
+        }
 
         RegisteredCommand command = this.RegisterCommand(
-          $"{commandInterfaceType.Name}.{commandMethod.Name}", (IExecutionContext context) => {
+          $"{commandInterfaceType.Name}.{commandMethod.Name}",
+          (IExecutionContext context) => {
 
             TCommandInterface impl = implementationGetter.Invoke();
 
-
-
-
-            context.SetCancellationPossible(true);
-
-
-
-            xxx
-
-
-
-
-
-
-
-
-
-            List<object> args = new List<object>();
-            ParameterInfo[] parameters = commandMethod.GetParameters();
-            for (int i = 0; i < parameters.Length; i++) {
-              if (i < execution.Arguments.Length) {
-                args.Add(execution.Arguments[i]);
-              }
-              else {
-                args.Add(Type.Missing);
-              }
+            object[] args = convertedArgGetters.Select(
+              (getter) => getter.Invoke(context, impl)
+            ).ToArray();
+ 
+            object result = commandMethod.Invoke(impl, args);
+            if (commandMethod.ReturnType == typeof(void)) {
+              return InvocationResult.Completed;
+            }
+            else {
+              //TODO: in future, we will handle results here 
+              return InvocationResult.Completed;
             }
 
-
-            //object result = commandMethod.Invoke(impl, args.ToArray());
-            //if (commandMethod.ReturnType == typeof(void)) {
-            //  return InvocationResult.Completed;
-            //}
-            //else {
-            //  //we dont do anything with the result, but at least we can check if it threw an exception or not
-            //  return InvocationResult.Completed;
-            //}
-
-
-
-            return InvocationResult.Completed;
           }
         );
 
+        command.ArgumentNames = commandMethod.GetParameters().Where(
+          (p) => p.ParameterType != typeof(CancellationToken) && p.ParameterType != typeof(IExecutionContext)
+        ).Select(
+          p => p.Name
+        ).ToArray();
 
         commands.Add(command);
       }
 
       return commands.ToArray();
-    };
+    }
 
     #endregion
 
@@ -409,55 +447,6 @@ namespace UShell.ServerCommands {
 
     }
 
-    public void StartExecution(string commandName, string[] arguments, int syncWaitMs, out ServerCommandExecutionState executionState) {
-      
-      DateTime holdUntil = DateTime.Now.AddMilliseconds(syncWaitMs);
-      RegisteredCommand command;
-     
-      executionState = new ServerCommandExecutionState();
-      executionState.ExecutionId = Guid.NewGuid().ToString().ToLower().Replace("-", "");
-      executionState.CommandName = commandName;
-
-      this.CleanupOrphanedExecutions();
-
-      if (!this.CanStartExecution(commandName, out var reason, out command)) {
-        if (reason == CommandAvailabilityInfo.ConcurrencyLock) {
-          executionState.InvocationState = InvocationStatus.RejectedConcurrencyLock;
-        }
-        else if (reason == CommandAvailabilityInfo.TresholdLock) {
-          executionState.InvocationState = InvocationStatus.RejectedTresholdLock;
-        }
-        else if (reason == CommandAvailabilityInfo.NoPermission) {
-          executionState.InvocationState = InvocationStatus.RejectedNoPermission;
-        }
-        else if (reason == CommandAvailabilityInfo.PermanentlyUnavailable) {
-          executionState.InvocationState = InvocationStatus.RejectedPermanentlyUnavailable;
-        }
-
-        return;
-      }
-
-      if(arguments == null) {
-        arguments = new string[0];
-      }
-
-      var context = new ExecutionContext(this, command, arguments, executionState);
-
-      lock (_RunningExecutionsPerId) {
-        _RunningExecutionsPerId.Add(context.ExecutionId, context);
-      }
-
-      context.Start();
-
-      while (DateTime.Now < holdUntil) {
-        Thread.Sleep(100);
-        if(executionState.InvocationState > InvocationStatus.InProgress) {
-          break;
-        }
-      }
-
-    }
-
     public void CleanupOrphanedExecutions() {
       lock (_RunningExecutionsPerId) { 
         foreach (ExecutionContext context in _RunningExecutionsPerId.Values.ToArray()) {
@@ -502,6 +491,10 @@ namespace UShell.ServerCommands {
           context.RequestCancellation();
         }
       }
+    }
+
+    public virtual void Dispose() {
+      this.EngineLifetimeCancellationTokenSource.Cancel();
     }
 
   }

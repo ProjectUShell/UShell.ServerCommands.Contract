@@ -1,4 +1,3 @@
-using Demo;
 using DistributedDataFlow;
 using Logging.SmartStandards;
 using Logging.SmartStandards.AspSupport;
@@ -19,7 +18,7 @@ using System.Text;
 using System.Web.UJMW;
 using UShell.ServerCommands;
 
-namespace Security {
+namespace Demo {
 
   public class Startup {
 
@@ -68,14 +67,13 @@ namespace Security {
       //register the server command executor
       //(this will automatically create the required controller and endpoints )
       services.AddServerCommandExecutor(
-        (executor) => {
+        (registrar) => {
 
           //register one or more services which providing methods that should be exposed as "Commands":
 
-          executor.RegisterCommands<IDemoCommands>(); // <- the instance will be resolved via DI (as registeres above)
+          registrar.RegisterCommands<IDemoCommands>(); // <- the instance will be resolved via DI (as registeres above)
 
-        },
-        (ujmwOptions) => ujmwOptions.ControllerRoute = "DemoCommands" // <- customize the ujmw endpoint of the executor
+        }
       );
 
       //////////////////////////////////////////////////////////////////////////////////////////

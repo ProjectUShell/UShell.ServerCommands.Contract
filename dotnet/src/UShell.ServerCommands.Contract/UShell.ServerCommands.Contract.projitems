@@ -9,11 +9,14 @@
     <Import_RootNamespace>System</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)CommandExecutorExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CommandExecutor.RegisteredCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CommandExecutor.InvocationResult.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CommandExecutor.ExecutionContext.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CommandExecutor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)[Executor]\[Interfaces]\IExecutionContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)[Executor]\[Interfaces]\ICommandRegistrar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)[Executor]\CommandExecutor.Execution.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)[Convenience]\CommandExecutorExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)[Executor]\RegisteredCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)[Executor]\CommandExecutor.InvocationResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)[Executor]\ExecutionContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)[Executor]\CommandExecutor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)[Contract]\ServerCommandDescription.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)[Contract]\ServerCommandExecutionState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)[Contract]\[Enums]\InvocationStatus.cs" />
@@ -21,7 +24,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)[Contract]\IServerCommandExecutor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)UShell\" />
+    <Folder Include="$(MSBuildThisFileDirectory)[Convenience]\" />
     <Folder Include="$(MSBuildThisFileDirectory)[Contract]\" />
+    <Folder Include="$(MSBuildThisFileDirectory)[Executor]\[Interfaces]\" />
   </ItemGroup>
 </Project>

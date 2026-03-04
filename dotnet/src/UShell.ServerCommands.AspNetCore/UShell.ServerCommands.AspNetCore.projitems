@@ -11,5 +11,6 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AspServerCommandsSetupExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AspWorkerBasedCommandExecutor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ICommandRegistrar.cs" />
   </ItemGroup>
 </Project>
