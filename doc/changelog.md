@@ -8,7 +8,13 @@ This files contains a version history including all changes relevant for semanti
 
 ## Upcoming Changes
 
-* Completed implementation of IHostedService, (**MVP**-state is now reached)
+*(none)*
+
+
+
+## v 1.0.0
+released **2026-03-04**, including:
+ - Completed implementation of IHostedService, (**MVP**-state is now reached)
 
 
 
