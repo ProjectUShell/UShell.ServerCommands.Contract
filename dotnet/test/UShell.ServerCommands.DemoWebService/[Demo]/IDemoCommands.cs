@@ -9,7 +9,7 @@ namespace UShell.ServerCommands {
 
   public interface IDemoCommands {
 
-    int ProcessAndCountManyManyRecords(CancellationToken ct);
+    void ProcessAndCountManyManyRecords(CancellationToken ct);
 
   }
 

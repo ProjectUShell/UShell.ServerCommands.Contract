@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace UShell.ServerCommands {
 
-  public partial class AspWorkerBasedCommandExecutor : CommandExecutor, IAspCommandRegistrar, IHostedService {
+  public partial class AspWorkerBasedCommandExecutor : CommandExecutor, IAspCommandRegistrar {
 
     public AspWorkerBasedCommandExecutor(IServiceProvider serviceProvider) {
       _ServiceProvider = serviceProvider;
@@ -66,11 +67,37 @@ namespace UShell.ServerCommands {
       return Task.Run(callback, this.EnvironmentHardShutdownCancellationTokenSource.Token);
     }
 
-
     private Task _DelayedHardShutdownTask = null;
 
+    //'classitis' -> an IHostedService can only be registered in a way that it is started
+    //and managed as a completely unreachable instance, therefore we need this small proxy,
+    //so that the DI instance of 'AspWorkerBasedCommandExecutor' is still available as a service -
+    //otherwise you could not have it injected into a UJMW controller...
+    internal class HostedServiceProxyForCommandExecutor : IHostedService {
+
+      IServiceProvider _Services;
+
+      public HostedServiceProxyForCommandExecutor(IServiceProvider services) {
+        _Services = services;
+      }
+
+      private AspWorkerBasedCommandExecutor FindExecutor() {
+        IServerCommandExecutor executor = _Services.GetRequiredService<IServerCommandExecutor>();
+        return (AspWorkerBasedCommandExecutor) executor;
+      }
+
+      public Task StartAsync(CancellationToken cancellationToken) {
+        return this.FindExecutor().StartAsync(cancellationToken);
+      }
+
+      public Task StopAsync(CancellationToken cancellationToken) {
+        return this.FindExecutor().StopAsync(cancellationToken);
+      }
+
+    }
+
     // Wird vom Host beim Start aufgerufen
-    public Task StartAsync(CancellationToken cancellationToken) {
+    private Task StartAsync(CancellationToken cancellationToken) {
 
       //preserve the official cancellation token comming from the hosting environment
       this.EngineLifetimeCancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
@@ -82,7 +109,7 @@ namespace UShell.ServerCommands {
 
       _DelayedHardShutdownTask = Task.Run(() => {
         while (!this.EngineLifetimeCancellationTokenSource.IsCancellationRequested) {
-          Thread.Sleep(1000);
+          Thread.Sleep(500);
         }
         Thread.Sleep(10000);
         this.EnvironmentHardShutdownCancellationTokenSource.Cancel();
@@ -94,7 +121,7 @@ namespace UShell.ServerCommands {
     }
 
     // Wird vom Host beim Shutdown aufgerufen
-    public async Task StopAsync(CancellationToken cancellationToken) {
+    private async Task StopAsync(CancellationToken cancellationToken) {
 
       this.EngineLifetimeCancellationTokenSource.Cancel();
 

@@ -21,10 +21,23 @@ namespace UShell.ServerCommands {
       }
     }
 
+    private bool CommandExists(string commandName) {
+      if(string.IsNullOrWhiteSpace(commandName)) {
+        return false;
+      }
+      lock (_RegisteredCommandsPerName) {
+        return _RegisteredCommandsPerName.ContainsKey(commandName);
+      }
+    }
+
     public void StartExecution(string commandName, string[] arguments, int syncWaitMs, out ServerCommandExecutionState executionState) {
       
       if (this.EngineLifetimeCancellationTokenSource.Token.IsCancellationRequested) {
         throw new InvalidOperationException("Engine not running!");
+      }
+
+      if (!CommandExists(commandName)) {
+        throw new InvalidOperationException($"unknown command '{commandName}'.");
       }
 
       DateTime holdUntil = DateTime.Now.AddMilliseconds(syncWaitMs);

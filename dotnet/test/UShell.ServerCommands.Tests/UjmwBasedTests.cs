@@ -11,26 +11,31 @@ namespace UShell.ServerCommands {
   [TestClass()]
   public class UjmwBasedTests {
 
-    [TestMethod(), Ignore()]
+    [TestMethod()]
     public void ExecuterUjmwTest1() {
 
-      IServerCommandExecutor executor = DynamicClientFactory.CreateInstance<IServerCommandExecutor>(
-       "http://localhost:55202/DemoCommands", "dummy-auth-header"
-      );
+      DemoService service = new DemoService();
 
-      ServerCommandExecutionState finalState = executor.ExecuteAndPoll(
-       $"{nameof(IDemoCommands)}.{nameof(IDemoCommands.ProcessAndCountManyManyRecords)}"
-      );
+      CommandExecutor executor = new CommandExecutor();
+      executor.Configure((registrar) => {
+        registrar.RegisterCommands<IDemoCommands>(()=> service);
+      });
 
-      Assert.AreEqual(InvocationStatus.Completed, finalState.InvocationState);
+      //IServerCommandExecutor executor = DynamicClientFactory.CreateInstance<IServerCommandExecutor>(
+      // "http://localhost:55202/DemoCommands", "dummy-auth-header"
+      //);
 
+      //ServerCommandExecutionState finalState = executor.ExecuteAndPoll(
+      // $"{nameof(IDemoCommands)}.{nameof(IDemoCommands.ProcessAndCountManyManyRecords)}",
+      // pollingIntervalSeconds: 1
+      //);
 
-
+      //Assert.AreEqual(InvocationStatus.Completed, finalState.InvocationState);
 
       ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // PoC - Haarsträubendes experiment, bei dem der abstrakte executor wiederum hinter ujmw "versteckt" wird... //
 
-      IAbstractCallInvoker ujmwProxy = new ServerCommandUjmwCallInvoker(executor);
+      IAbstractCallInvoker ujmwProxy = new ServerCommandUjmwCallInvoker(executor, 1 , nameof(IDemoCommands) + ".");
       IDemoCommands demoServiceCommands = DynamicClientFactory.CreateInstance<IDemoCommands>(ujmwProxy);
 
       demoServiceCommands.ProcessAndCountManyManyRecords(CancellationToken.None);
@@ -45,10 +50,14 @@ namespace UShell.ServerCommands {
 
     private IServerCommandExecutor _Executor;
     private int _PollingIntervalSeconds;
+    private string _CommandPrefix;
 
-    public ServerCommandUjmwCallInvoker(IServerCommandExecutor executor, int pollingIntervalSeconds = 2) {
+    public ServerCommandUjmwCallInvoker(IServerCommandExecutor executor, int pollingIntervalSeconds = 2, string commandPrefix = "") {
+     
       _Executor = executor;
       _PollingIntervalSeconds = pollingIntervalSeconds;
+      _CommandPrefix = commandPrefix;
+
     }
 
     public object InvokeCall(string methodName, object[] arguments, string[] argumentNames, string methodSignatureString) {
@@ -62,7 +71,7 @@ namespace UShell.ServerCommands {
       ).ToArray();
 
       ServerCommandExecutionState finalState = _Executor.TryExecuteAndPoll(
-        $"{methodName}", argumentValuesAsStrings,
+        $"{_CommandPrefix}{methodName}", argumentValuesAsStrings,
         _PollingIntervalSeconds, cancellationTokenFromArgs
       );
 

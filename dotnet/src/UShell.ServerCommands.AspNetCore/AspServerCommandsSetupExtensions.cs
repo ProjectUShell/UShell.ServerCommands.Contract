@@ -30,6 +30,8 @@ namespace UShell.ServerCommands {
         return executor;
       });
 
+      services.AddHostedService<AspWorkerBasedCommandExecutor.HostedServiceProxyForCommandExecutor>();
+
       //register the executor itself as ujmw-endpoint...
       services.AddDynamicUjmwControllers(
         (DynamicUjmwControllerRegistrar ujmw) => {

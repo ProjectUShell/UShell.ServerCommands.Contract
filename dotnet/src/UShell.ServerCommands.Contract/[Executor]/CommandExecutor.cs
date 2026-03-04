@@ -26,6 +26,10 @@ namespace UShell.ServerCommands {
       this.EngineLifetimeCancellationTokenSource = engineLifetimeCancellationTokenSource;
     }
 
+    public void Configure(Action<ICommandRegistrar> configurationCallback) {
+      configurationCallback.Invoke(this);
+    }
+
     #region " ICommandRegistrar (multiple overloads for convenience) "
 
     #region " Action (0-3 Ags) "

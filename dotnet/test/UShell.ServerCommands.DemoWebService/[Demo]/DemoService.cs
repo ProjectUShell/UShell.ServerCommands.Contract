@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logging.SmartStandards;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
@@ -9,18 +10,25 @@ namespace UShell.ServerCommands {
 
   public class DemoService : IDemoCommands {
 
-    public int ProcessAndCountManyManyRecords(CancellationToken ct) {
+    public void ProcessAndCountManyManyRecords(CancellationToken ct) {
 
       int counter = 0;
 
-      while (!ct.IsCancellationRequested && counter < 20) {
+      while (!ct.IsCancellationRequested && counter < 12) {
 
+        DevLogger.LogInformation($"TICK... {counter}");
         Thread.Sleep(1000);
         counter++;
 
       }
 
-      return counter;
+      if (ct.IsCancellationRequested) {
+        DevLogger.LogInformation($"CANCELLED");
+      }
+      else {
+        DevLogger.LogInformation($"COMPLETED");
+      }
+
     }
 
   }
