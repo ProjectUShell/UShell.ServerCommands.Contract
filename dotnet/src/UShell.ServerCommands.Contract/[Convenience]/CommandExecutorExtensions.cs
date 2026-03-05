@@ -12,11 +12,14 @@ namespace UShell.ServerCommands {
       this IServerCommandExecutor executor,
       string commandName, string[] arguments = null, int pollingIntervalSeconds = 10,
       CancellationToken cancellationToken = default,
-      Action<ServerCommandExecutionState> onNotCompletedOutcome = null
+      Action<ServerCommandExecutionState> onNotCompletedOutcome = null,
+      Action<int,int> onProgressUpdate = null,
+      Action<string> onStatusMessageUpdate = null
     ) {
 
       ServerCommandExecutionState finalState = executor.TryExecuteAndPoll(
-        commandName, arguments, pollingIntervalSeconds, cancellationToken
+        commandName, arguments, pollingIntervalSeconds, cancellationToken,
+        onProgressUpdate, onStatusMessageUpdate
       );
    
       if (finalState.InvocationState != InvocationStatus.Completed) {
@@ -48,7 +51,9 @@ namespace UShell.ServerCommands {
     public static ServerCommandExecutionState TryExecuteAndPoll(
       this IServerCommandExecutor executor,
       string commandName, string[] arguments = null, int pollingIntervalSeconds = 10,
-      CancellationToken cancellationToken = default
+      CancellationToken cancellationToken = default,
+      Action<int, int> onProgressUpdate = null,
+      Action<string> onStatusMessageUpdate = null
     ) {
 
       ServerCommandExecutionState state = new ServerCommandExecutionState() { CommandName = commandName };
@@ -57,6 +62,13 @@ namespace UShell.ServerCommands {
         commandName, arguments, pollingIntervalSeconds,
         out state
       );
+
+      string lastStatusMessage = state?.StatusMessage;
+      onStatusMessageUpdate?.Invoke(lastStatusMessage);
+
+      int currentStep = state?.CurrentStep ?? 0;
+      int totalSteps = state?.TotalSteps ?? 0;
+      onProgressUpdate?.Invoke(currentStep, totalSteps);
 
       bool cancallationRequestRedirected = false;
       while (
@@ -86,12 +98,26 @@ namespace UShell.ServerCommands {
           else if(!state.StatusMessage.StartsWith(NoResponseStatusMessage) ) {
             state.StatusMessage = NoResponseStatusMessage + state.StatusMessage;
           }
+
+        }
+
+        if (state.StatusMessage != lastStatusMessage) {
+          lastStatusMessage = state.StatusMessage;
+          onStatusMessageUpdate?.Invoke(lastStatusMessage);
+        }
+
+        if( state.CurrentStep != currentStep || state.TotalSteps != totalSteps ) {
+          currentStep = state.CurrentStep;
+          totalSteps = state.TotalSteps;
+          onProgressUpdate?.Invoke(currentStep, totalSteps);
         }
 
         if (cancellationToken.IsCancellationRequested && state.CancellationPossible && !cancallationRequestRedirected) {
           try {
             executor.RequestCancellation(state.ExecutionId);
             cancallationRequestRedirected = true;
+            lastStatusMessage = "Cancellation requested...";
+            onStatusMessageUpdate?.Invoke(lastStatusMessage);
           }
           catch {
           }

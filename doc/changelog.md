@@ -8,7 +8,7 @@ This files contains a version history including all changes relevant for semanti
 
 ## Upcoming Changes
 
-*(none)*
+* **new Feature**: 'ExecuteAndPoll' now offers callbacks for updates of current StatusMessage and Progress...
 
 
 
