@@ -8,7 +8,13 @@ This files contains a version history including all changes relevant for semanti
 
 ## Upcoming Changes
 
-* **new Feature**: 'ExecuteAndPoll' now offers callbacks for updates of current StatusMessage and Progress...
+*(none)*
+
+
+
+## v 1.1.0
+released **2026-03-05**, including:
+ - **new Feature**: 'ExecuteAndPoll' now offers callbacks for updates of current StatusMessage and Progress...
 
 
 

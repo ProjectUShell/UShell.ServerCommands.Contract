@@ -1,13 +1,13 @@
 {
-  "currentVersion": "1.0.0",
-  "currentVersionWithSuffix": "1.0.0",
+  "currentVersion": "1.1.0",
+  "currentVersionWithSuffix": "1.1.0",
   "releaseType": "",
-  "previousVersion": "0.1.1",
-  "changeGrade": "fix",
+  "previousVersion": "1.0.0",
+  "changeGrade": "minor",
   "currentMajor": 1,
-  "currentMinor": 0,
+  "currentMinor": 1,
   "currentPatch": 0,
-  "versionDateInfo": "2026-03-04",
-  "versionTimeInfo": "16:35:58",
-  "versionNotes": "- Completed implementation of IHostedService, (**MVP**-state is now reached)\n"
+  "versionDateInfo": "2026-03-05",
+  "versionTimeInfo": "06:12:38",
+  "versionNotes": "- new Feature: 'ExecuteAndPoll' now offers callbacks for updates of current StatusMessage and Progress...\n"
 }
