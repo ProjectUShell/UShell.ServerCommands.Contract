@@ -1,13 +1,13 @@
 {
-  "currentVersion": "1.1.0",
-  "currentVersionWithSuffix": "1.1.0",
+  "currentVersion": "1.2.0",
+  "currentVersionWithSuffix": "1.2.0",
   "releaseType": "",
-  "previousVersion": "1.0.0",
+  "previousVersion": "1.1.0",
   "changeGrade": "minor",
   "currentMajor": 1,
-  "currentMinor": 1,
+  "currentMinor": 2,
   "currentPatch": 0,
-  "versionDateInfo": "2026-03-05",
-  "versionTimeInfo": "06:12:38",
-  "versionNotes": "- new Feature: 'ExecuteAndPoll' now offers callbacks for updates of current StatusMessage and Progress...\n"
+  "versionDateInfo": "2026-05-29",
+  "versionTimeInfo": "08:09:45",
+  "versionNotes": "- new Feature: Moved targets from .net 6/8 to 8/10\n"
 }
