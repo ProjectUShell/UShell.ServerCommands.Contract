@@ -13,8 +13,8 @@
     <PackageReference Include="MSTest.TestFramework" Version="3.0.4" />
     <PackageReference Include="UJMW.DynamicClient" Version="5.5.1" />
 
-    <PackageReference Include="SmartAmbience" Version="2.5.0" />
-    <PackageReference Include="SmartAmbience.MvcSupport" Version="2.5.0" />
+    <PackageReference Include="SmartAmbience" Version="2.5.1" />
+    <PackageReference Include="SmartAmbience.MvcSupport" Version="2.5.1" />
     <PackageReference Include="SmartStandards.AuthTokenHandling" Version="5.1.0" />
     <PackageReference Include="SmartStandards.AuthTokenHandling.MvcSupport" Version="5.1.0" />
     <PackageReference Include="SmartStandards.Logging" Version="3.4.3" />
