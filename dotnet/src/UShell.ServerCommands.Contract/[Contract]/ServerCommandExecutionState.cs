@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 namespace UShell.ServerCommands {
 
@@ -8,9 +9,9 @@ namespace UShell.ServerCommands {
     /// <summary>
     /// The UniqueId of the current execution
     /// </summary>
-    public string ExecutionId { get; internal set; }
+    public string ExecutionId { get; internal set; } = string.Empty;
 
-    public string CommandName { get; internal set; }
+    public string CommandName { get; internal set; } = string.Empty;
 
     /// <summary>
     /// 0=Queued, 1=InProgress, 
@@ -24,7 +25,7 @@ namespace UShell.ServerCommands {
     /// During execution (State 1) additional info regarding the current progress.
     /// After Failure (State 4) additional additional error information.
     /// </summary>
-    public string StatusMessage { get; set; }
+    public string StatusMessage { get; set; } = string.Empty;
 
     /// <summary>
     /// Used for client-side Progressbar.
@@ -53,6 +54,11 @@ namespace UShell.ServerCommands {
     /// but should be done on earliest possible moment.
     /// </summary>
     public bool CancellationRequested { get; set; } = false;
+
+    /// <summary>
+    /// The earliest time at which the next poll should occur.
+    /// </summary>
+    public DateTime NextPollNotBefore { get; set; } = DateTime.MinValue;
 
   }
 

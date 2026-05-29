@@ -25,10 +25,10 @@ namespace UShell.ServerCommands {
       // "http://localhost:55202/DemoCommands", "dummy-auth-header"
       //);
 
-      //ServerCommandExecutionState finalState = executor.ExecuteAndPoll(
-      // $"{nameof(IDemoCommands)}.{nameof(IDemoCommands.ProcessAndCountManyManyRecords)}",
-      // pollingIntervalSeconds: 1
-      //);
+      ServerCommandExecutionState finalState = executor.ExecuteAndPoll(
+       $"{nameof(IDemoCommands)}.{nameof(IDemoCommands.ProcessAndCountManyManyRecords)}",
+       pollingIntervalSeconds: 1
+      );
 
       //Assert.AreEqual(InvocationStatus.Completed, finalState.InvocationState);
 

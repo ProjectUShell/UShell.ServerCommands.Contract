@@ -19,23 +19,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C5272353-5
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UShell.ServerCommands.Contract", "src\UShell.ServerCommands.Contract\UShell.ServerCommands.Contract.shproj", "{CF0A161A-99BA-4F01-AF5E-16C6FCBC85AE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UShell.ServerCommands.Contract.net6.0", "src\UShell.ServerCommands.Contract.net6.0\UShell.ServerCommands.Contract.net6.0.csproj", "{7B5BAEA8-7E79-4A30-B6C1-4DA4831AF970}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "targets", "targets", "{911E9786-3347-476A-89D8-6AB7EA3D6320}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UShell.ServerCommands.Tests", "test\UShell.ServerCommands.Tests\UShell.ServerCommands.Tests.csproj", "{D0CD47CF-A4BE-408D-A621-0CD099CFB76F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UShell.ServerCommands.Contract.net8", "src\UShell.ServerCommands.Contract.net8.0\UShell.ServerCommands.Contract.net8.csproj", "{4E7216A6-8146-479A-B433-4F777ABED293}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UShell.ServerCommands.Contract.net48", "src\UShell.ServerCommands.Contract.net48\UShell.ServerCommands.Contract.net48.csproj", "{B0BA06FE-6437-4B9E-8C76-3ADFC8D191D2}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UShell.ServerCommands.AspNetCore", "src\UShell.ServerCommands.AspNetCore\UShell.ServerCommands.AspNetCore.shproj", "{FCB5D3F8-ED1B-41E1-B36E-AA0B1E36A344}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UShell.ServerCommands.AspNetCore.net8", "src\UShell.ServerCommands.Contract.AspNetCore.net8.0\UShell.ServerCommands.AspNetCore.net8.csproj", "{A578BA9D-C134-CED5-B678-01A6F6499F24}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UShell.ServerCommands.DemoWebService", "test\UShell.ServerCommands.DemoWebService\UShell.ServerCommands.DemoWebService.csproj", "{47F0A76E-FCDE-4418-4CE4-4D276111A84A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UShell.ServerCommands.Contract.net10.0", "src\UShell.ServerCommands.Contract.net10.0\UShell.ServerCommands.Contract.net10.0.csproj", "{590F6AFE-5E5F-90F9-BB13-E9E079824103}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UShell.ServerCommands.Contract.net8.0", "src\UShell.ServerCommands.Contract.net8.0\UShell.ServerCommands.Contract.net8.0.csproj", "{164DE721-D5D6-254F-48D7-66584ECBFBF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UShell.ServerCommands.AspNetCore.net10.0", "src\UShell.ServerCommands.AspNetCore.net10.0\UShell.ServerCommands.AspNetCore.net10.0.csproj", "{B799ED05-CE87-9B66-5078-7A7CFCEA3B1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UShell.ServerCommands.AspNetCore.net8.0", "src\UShell.ServerCommands.AspNetCore.net8.0\UShell.ServerCommands.AspNetCore.net8.0.csproj", "{DFB91020-C6AF-802D-0106-2BAEDF431D0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,54 +45,60 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7B5BAEA8-7E79-4A30-B6C1-4DA4831AF970}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B5BAEA8-7E79-4A30-B6C1-4DA4831AF970}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B5BAEA8-7E79-4A30-B6C1-4DA4831AF970}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B5BAEA8-7E79-4A30-B6C1-4DA4831AF970}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D0CD47CF-A4BE-408D-A621-0CD099CFB76F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D0CD47CF-A4BE-408D-A621-0CD099CFB76F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0CD47CF-A4BE-408D-A621-0CD099CFB76F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0CD47CF-A4BE-408D-A621-0CD099CFB76F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4E7216A6-8146-479A-B433-4F777ABED293}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E7216A6-8146-479A-B433-4F777ABED293}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E7216A6-8146-479A-B433-4F777ABED293}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E7216A6-8146-479A-B433-4F777ABED293}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B0BA06FE-6437-4B9E-8C76-3ADFC8D191D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B0BA06FE-6437-4B9E-8C76-3ADFC8D191D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0BA06FE-6437-4B9E-8C76-3ADFC8D191D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0BA06FE-6437-4B9E-8C76-3ADFC8D191D2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A578BA9D-C134-CED5-B678-01A6F6499F24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A578BA9D-C134-CED5-B678-01A6F6499F24}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A578BA9D-C134-CED5-B678-01A6F6499F24}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A578BA9D-C134-CED5-B678-01A6F6499F24}.Release|Any CPU.Build.0 = Release|Any CPU
 		{47F0A76E-FCDE-4418-4CE4-4D276111A84A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{47F0A76E-FCDE-4418-4CE4-4D276111A84A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47F0A76E-FCDE-4418-4CE4-4D276111A84A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47F0A76E-FCDE-4418-4CE4-4D276111A84A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{590F6AFE-5E5F-90F9-BB13-E9E079824103}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{590F6AFE-5E5F-90F9-BB13-E9E079824103}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{590F6AFE-5E5F-90F9-BB13-E9E079824103}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{590F6AFE-5E5F-90F9-BB13-E9E079824103}.Release|Any CPU.Build.0 = Release|Any CPU
+		{164DE721-D5D6-254F-48D7-66584ECBFBF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{164DE721-D5D6-254F-48D7-66584ECBFBF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{164DE721-D5D6-254F-48D7-66584ECBFBF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{164DE721-D5D6-254F-48D7-66584ECBFBF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B799ED05-CE87-9B66-5078-7A7CFCEA3B1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B799ED05-CE87-9B66-5078-7A7CFCEA3B1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B799ED05-CE87-9B66-5078-7A7CFCEA3B1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B799ED05-CE87-9B66-5078-7A7CFCEA3B1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFB91020-C6AF-802D-0106-2BAEDF431D0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFB91020-C6AF-802D-0106-2BAEDF431D0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFB91020-C6AF-802D-0106-2BAEDF431D0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFB91020-C6AF-802D-0106-2BAEDF431D0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CF0A161A-99BA-4F01-AF5E-16C6FCBC85AE} = {EFB5135D-039A-4D92-8FDD-9EA5D070F991}
-		{7B5BAEA8-7E79-4A30-B6C1-4DA4831AF970} = {911E9786-3347-476A-89D8-6AB7EA3D6320}
 		{911E9786-3347-476A-89D8-6AB7EA3D6320} = {EFB5135D-039A-4D92-8FDD-9EA5D070F991}
 		{D0CD47CF-A4BE-408D-A621-0CD099CFB76F} = {C5272353-539E-4138-93FD-9DF437F6DA47}
-		{4E7216A6-8146-479A-B433-4F777ABED293} = {911E9786-3347-476A-89D8-6AB7EA3D6320}
 		{B0BA06FE-6437-4B9E-8C76-3ADFC8D191D2} = {911E9786-3347-476A-89D8-6AB7EA3D6320}
 		{FCB5D3F8-ED1B-41E1-B36E-AA0B1E36A344} = {EFB5135D-039A-4D92-8FDD-9EA5D070F991}
-		{A578BA9D-C134-CED5-B678-01A6F6499F24} = {911E9786-3347-476A-89D8-6AB7EA3D6320}
 		{47F0A76E-FCDE-4418-4CE4-4D276111A84A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{590F6AFE-5E5F-90F9-BB13-E9E079824103} = {911E9786-3347-476A-89D8-6AB7EA3D6320}
+		{164DE721-D5D6-254F-48D7-66584ECBFBF7} = {911E9786-3347-476A-89D8-6AB7EA3D6320}
+		{B799ED05-CE87-9B66-5078-7A7CFCEA3B1E} = {911E9786-3347-476A-89D8-6AB7EA3D6320}
+		{DFB91020-C6AF-802D-0106-2BAEDF431D0C} = {911E9786-3347-476A-89D8-6AB7EA3D6320}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D2F37C1D-32F0-4BF2-AAEB-46B9D8C07D23}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		src\UShell.ServerCommands.Contract\UShell.ServerCommands.Contract.projitems*{4e7216a6-8146-479a-b433-4f777abed293}*SharedItemsImports = 5
-		src\UShell.ServerCommands.Contract\UShell.ServerCommands.Contract.projitems*{7b5baea8-7e79-4a30-b6c1-4da4831af970}*SharedItemsImports = 5
-		src\UShell.ServerCommands.AspNetCore\UShell.ServerCommands.AspNetCore.projitems*{a578ba9d-c134-ced5-b678-01a6f6499f24}*SharedItemsImports = 5
+		src\UShell.ServerCommands.Contract\UShell.ServerCommands.Contract.projitems*{164de721-d5d6-254f-48d7-66584ecbfbf7}*SharedItemsImports = 5
+		src\UShell.ServerCommands.Contract\UShell.ServerCommands.Contract.projitems*{590f6afe-5e5f-90f9-bb13-e9e079824103}*SharedItemsImports = 5
 		src\UShell.ServerCommands.Contract\UShell.ServerCommands.Contract.projitems*{b0ba06fe-6437-4b9e-8c76-3adfc8d191d2}*SharedItemsImports = 4
+		src\UShell.ServerCommands.AspNetCore\UShell.ServerCommands.AspNetCore.projitems*{b799ed05-ce87-9b66-5078-7a7cfcea3b1e}*SharedItemsImports = 5
 		src\UShell.ServerCommands.Contract\UShell.ServerCommands.Contract.projitems*{cf0a161a-99ba-4f01-af5e-16c6fcbc85ae}*SharedItemsImports = 13
+		src\UShell.ServerCommands.AspNetCore\UShell.ServerCommands.AspNetCore.projitems*{dfb91020-c6af-802d-0106-2baedf431d0c}*SharedItemsImports = 5
 		src\UShell.ServerCommands.AspNetCore\UShell.ServerCommands.AspNetCore.projitems*{fcb5d3f8-ed1b-41e1-b36e-aa0b1e36a344}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

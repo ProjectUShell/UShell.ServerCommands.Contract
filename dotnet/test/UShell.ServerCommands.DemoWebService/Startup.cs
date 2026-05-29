@@ -1,4 +1,3 @@
-using DistributedDataFlow;
 using Logging.SmartStandards;
 using Logging.SmartStandards.AspSupport;
 using Microsoft.AspNetCore;
@@ -8,13 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using Security.AccessTokenHandling;
 using System;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Web.UJMW;
 using UShell.ServerCommands;
 
@@ -34,8 +28,11 @@ namespace Demo {
 
     public void ConfigureServices(IServiceCollection services) {
 
-      services.AddLogging();
       services.AddSmartStandardsLogging(_Configuration);
+
+      DevLogger.LogCritical("neueeee");
+      DevLogger.LogTrace("t1");
+      DevLogger.LogTrace("t2");
 
       _ApiVersion = typeof(IDemoCommands).Assembly.GetName().Version;
 
@@ -69,6 +66,20 @@ namespace Demo {
       services.AddServerCommandExecutor(
         (registrar) => {
 
+          //registrar.RegisterCommand("Foo", (CancellationToken c) => {     
+            
+
+
+          //  meineiegenrhelper.dobbla
+
+
+            
+      
+
+          //},1);
+
+
+
           //register one or more services which providing methods that should be exposed as "Commands":
 
           registrar.RegisterCommands<IDemoCommands>(); // <- the instance will be resolved via DI (as registeres above)
@@ -78,7 +89,7 @@ namespace Demo {
 
       //////////////////////////////////////////////////////////////////////////////////////////
       
-      services.AddUjmwStandardSwaggerGen();
+      services.AddSwaggerGenSmartStandardsFlavored();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,11 +97,6 @@ namespace Demo {
       IApplicationBuilder app, IWebHostEnvironment env,
       ILoggerFactory loggerfactory, IHostApplicationLifetime lifetimeEvents
     ) {
-
-      string logFileFullName = _Configuration.GetValue<string>("LogFileName");
-      string logDir = Path.GetFullPath(Path.GetDirectoryName(logFileFullName));
-      Directory.CreateDirectory(logDir);
-      loggerfactory.AddFile(logFileFullName);
 
       //required for the www-root
       app.UseStaticFiles();
@@ -117,11 +123,6 @@ namespace Demo {
         endpoints.MapControllers();
       });
 
-      //MUST BE AFTER 'UseEndpoints'/'MapControllers'
-      app.UseUjmwStandardSwagger(_Configuration);
-
-      //var ass = AppDomain.CurrentDomain.GetAssemblies().Where((a)=>a.IsDynamic).ToArray();
-      //var tps = ass.First().GetTypes();
     }
 
   }
